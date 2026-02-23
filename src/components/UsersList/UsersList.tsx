@@ -8,7 +8,7 @@ export default function UsersList() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useMemo(() => {
+  useEffect(() => {
     console.log("fetching users...");
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
@@ -43,10 +43,6 @@ export default function UsersList() {
   const onClick = () => {
     setFilteredUsers(users);
     setSearchTerm("");
-    const searchInput = document.getElementById(
-      "search-input",
-    ) as HTMLInputElement;
-    searchInput.value = "";
   };
 
   return (
@@ -57,6 +53,7 @@ export default function UsersList() {
       <div>
         <p>Search</p>
         <input
+          value={searchTerm}
           id="search-input"
           style={{ border: "1px solid black" }}
           onChange={onChange}
